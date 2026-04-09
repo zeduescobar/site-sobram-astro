@@ -1,0 +1,50 @@
+---
+import Icon from '../ui/Icon.astro';
+import { faqs } from '../../data/site';
+---
+
+<section id="faq" class="content-section">
+  <div class="shell shell--narrow">
+    <div class="section-heading">
+      <p class="eyebrow">FAQ</p>
+      <h2>Perguntas frequentes</h2>
+      <p>Respostas objetivas para tirar dúvidas antes do contato comercial.</p>
+    </div>
+
+    <div class="faq-list" data-faq-list>
+      {faqs.map((item, index) => (
+        <article class="faq-item">
+          <h3>
+            <button
+              type="button"
+              class="faq-item__button"
+              data-faq-button
+              aria-expanded={index === 0 ? 'true' : 'false'}
+              aria-controls={`faq-panel-${index}`}
+              id={`faq-button-${index}`}
+            >
+              <span>{item.question}</span>
+              <Icon name="chevron-down" />
+            </button>
+          </h3>
+          <div
+            class="faq-item__panel"
+            data-faq-panel
+            id={`faq-panel-${index}`}
+            role="region"
+            aria-labelledby={`faq-button-${index}`}
+            hidden={index === 0 ? undefined : true}
+          >
+            <p>{item.answer}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initFaq } from '../../scripts/faq';
+
+  initFaq();
+</script>

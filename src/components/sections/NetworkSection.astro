@@ -1,0 +1,19 @@
+---
+import PartnerCarousel from '../ui/PartnerCarousel.astro';
+import { networkCategories } from '../../data/site';
+---
+
+<section id="rede" class="content-section">
+  <div class="shell">
+    <div class="section-heading">
+      <p class="eyebrow">Rede de atendimento</p>
+      <h2>Hospitais, policlínicas e laboratórios da região</h2>
+      <p>
+        Uma navegação estável com scroll-snap e melhoria progressiva em JavaScript, sem cálculos
+        frágeis de `translateX`.
+      </p>
+    </div>
+
+    <PartnerCarousel categories={networkCategories} />
+  </div>
+</section>

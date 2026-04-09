@@ -1,0 +1,66 @@
+---
+import { siteConfig } from '../../data/site';
+---
+
+<section id="formulario" class="content-section content-section--surface">
+  <div class="shell shell--narrow">
+    <div class="section-heading">
+      <p class="eyebrow">Solicite seu orçamento</p>
+      <h2>Receba um contato rápido da equipe SOBAM</h2>
+      <p>Os dados abaixo seguem para o EmailJS e continuam com fallback de WhatsApp em caso de erro.</p>
+    </div>
+
+    <form
+      id="contact-form"
+      class="contact-form"
+      data-contact-form
+      novalidate
+      data-whatsapp-url={siteConfig.whatsappUrl}
+      data-emailjs-public-key={siteConfig.emailJs.publicKey}
+      data-emailjs-service-id={siteConfig.emailJs.serviceId}
+      data-emailjs-template-id={siteConfig.emailJs.templateId}
+    >
+      <div class="contact-form__grid">
+        <label class="field">
+          <span>Nome completo</span>
+          <input type="text" id="nome" name="nome" autocomplete="name" required />
+        </label>
+
+        <label class="field">
+          <span>Telefone</span>
+          <input type="tel" id="telefone" name="telefone" autocomplete="tel" inputmode="tel" required />
+        </label>
+
+        <label class="field">
+          <span>E-mail</span>
+          <input type="email" id="email" name="email" autocomplete="email" required />
+        </label>
+
+        <label class="field">
+          <span>Modalidade</span>
+          <select id="modalidade" name="modalidade" required>
+            <option value="">Selecione uma opção</option>
+            <option value="individual">Individual</option>
+            <option value="familiar">Familiar</option>
+            <option value="empresarial">Empresarial</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="form-status" id="form-status" aria-live="polite" hidden>
+        <p id="form-status-text"></p>
+      </div>
+
+      <button type="submit" id="submit-btn" class="button-link button-link--primary contact-form__submit">
+        Solicitar orçamento
+      </button>
+    </form>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" defer></script>
+<script>
+  import { initContactForm } from '../../scripts/form';
+
+  initContactForm();
+</script>

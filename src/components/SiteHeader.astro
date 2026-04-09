@@ -1,0 +1,68 @@
+---
+import { Image } from 'astro:assets';
+import { brandAssets, navigation, siteConfig } from '../data/site';
+import ButtonLink from './ui/ButtonLink.astro';
+import Icon from './ui/Icon.astro';
+---
+
+<header class="site-header" data-header>
+  <div class="shell site-header__inner">
+    <a href="#home" class="site-header__brand" aria-label="SOBAM Planos">
+      <Image src={brandAssets.logo} alt="Grupo SOBAM" class="site-header__logo" loading="eager" />
+    </a>
+
+    <nav class="site-nav" aria-label="Navegação principal">
+      {navigation.map((item) => (
+        <a href={item.href} class="site-nav__link">
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="site-header__actions">
+      <ButtonLink
+        href={siteConfig.whatsappUrl}
+        target="_blank"
+        rel="noreferrer"
+        class="site-header__cta"
+      >
+        Solicitar orçamento
+      </ButtonLink>
+
+      <button
+        type="button"
+        class="menu-toggle"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Abrir menu"
+      >
+        <span data-menu-icon-open>
+          <Icon name="menu" />
+        </span>
+        <span data-menu-icon-close hidden>
+          <Icon name="close" />
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="mobile-menu" id="mobile-menu" data-mobile-menu hidden aria-label="Navegação móvel">
+    <div class="shell mobile-menu__inner">
+      {navigation.map((item) => (
+        <a href={item.href} class="mobile-menu__link">
+          {item.label}
+        </a>
+      ))}
+      <ButtonLink href={siteConfig.whatsappUrl} target="_blank" rel="noreferrer">
+        Solicitar orçamento
+      </ButtonLink>
+    </div>
+  </nav>
+</header>
+
+<script>
+  import { initMenu } from '../scripts/menu';
+
+  initMenu();
+</script>

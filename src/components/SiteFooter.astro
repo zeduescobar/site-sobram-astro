@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import { brandAssets, navigation, siteConfig } from '../data/site';
+import Icon from './ui/Icon.astro';
+---
+
+<footer class="site-footer">
+  <div class="shell site-footer__grid">
+    <div class="site-footer__brand">
+      <div class="site-footer__logos">
+        <Image src={brandAssets.footerLogo} alt="SOBAM" loading="lazy" class="site-footer__logo" />
+        <Image src={brandAssets.vaicoLogo} alt="VaiCom Saúde" loading="lazy" class="site-footer__partner" />
+      </div>
+      <div class="site-footer__ans">
+        <Image src={brandAssets.ansLogo} alt="ANS" loading="lazy" class="site-footer__ans-logo" />
+        <span>Regulamentado pela ANS</span>
+      </div>
+    </div>
+
+    <div>
+      <h2>Links rápidos</h2>
+      <ul class="site-footer__links">
+        {navigation.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h2>Contato</h2>
+      <ul class="site-footer__contact">
+        <li>
+          <Icon name="phone" />
+          <a href={`tel:+55${siteConfig.phoneRaw}`}>{siteConfig.phoneDisplay}</a>
+        </li>
+        <li>
+          <Icon name="phone" />
+          <a href="https://wa.me/5511967660060" target="_blank" rel="noreferrer">
+            WhatsApp comercial
+          </a>
+        </li>
+        <li>
+          <Icon name="map" />
+          <span>{siteConfig.address}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="shell site-footer__bottom">
+    <p>&copy; 2026 VaiCom Saúde - Corretora de Planos de Saúde</p>
+  </div>
+</footer>

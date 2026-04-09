@@ -1,0 +1,118 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+
+interface Slide {
+  title: string;
+  description: string;
+  image: any;
+  alt: string;
+}
+
+interface Category {
+  id: string;
+  label: string;
+  description: string;
+  slides: Slide[];
+}
+
+interface Props {
+  categories: Category[];
+}
+
+const { categories } = Astro.props;
+---
+
+<div class="network-tabs">
+  <div class="network-tabs__controls" role="tablist" aria-label="Categorias da rede">
+    {categories.map((category, index) => (
+      <button
+        type="button"
+        class="network-tabs__button"
+        data-tab-trigger
+        data-target={category.id}
+        role="tab"
+        aria-selected={index === 0 ? 'true' : 'false'}
+        aria-controls={`${category.id}-panel`}
+        id={`${category.id}-tab`}
+      >
+        {category.label}
+      </button>
+    ))}
+  </div>
+
+  <div class="network-panels">
+    {categories.map((category, index) => (
+      <section
+        class="network-panel"
+        id={`${category.id}-panel`}
+        data-tab-panel
+        data-category={category.id}
+        aria-labelledby={`${category.id}-tab`}
+        role="tabpanel"
+        hidden={index === 0 ? undefined : true}
+      >
+        <div class="network-panel__intro">
+          <h3>{category.label}</h3>
+          <p>{category.description}</p>
+        </div>
+
+        <div class="carousel js-carousel" data-carousel data-carousel-category={category.id}>
+          <div class="carousel__viewport" data-carousel-viewport tabindex="0">
+            <ol class="carousel__track" data-carousel-track>
+              {category.slides.map((slide, slideIndex) => (
+                <li class="carousel__slide" data-carousel-slide id={`${category.id}-slide-${slideIndex + 1}`}>
+                  <article class="network-card">
+                    <div class="network-card__media">
+                      <Image
+                        src={slide.image}
+                        alt={slide.alt}
+                        widths={[360, 540, 720]}
+                        sizes="(min-width: 1024px) 28vw, (min-width: 640px) 45vw, 84vw"
+                        loading="lazy"
+                        format="webp"
+                        quality={68}
+                      />
+                    </div>
+                    <div class="network-card__body">
+                      <h4>{slide.title}</h4>
+                      <p>{slide.description}</p>
+                    </div>
+                  </article>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div class="carousel__actions">
+            <button type="button" class="carousel__nav" data-carousel-prev aria-label={`Voltar em ${category.label}`}>
+              <Icon name="chevron-left" />
+            </button>
+
+            <div class="carousel__dots" role="tablist" aria-label={`Slides de ${category.label}`}>
+              {category.slides.map((slide, slideIndex) => (
+                <button
+                  type="button"
+                  class="carousel__dot"
+                  data-carousel-dot
+                  data-slide={slideIndex}
+                  aria-label={`Ir para o slide ${slideIndex + 1}: ${slide.title}`}
+                ></button>
+              ))}
+            </div>
+
+            <button type="button" class="carousel__nav" data-carousel-next aria-label={`Avançar em ${category.label}`}>
+              <Icon name="chevron-right" />
+            </button>
+          </div>
+        </div>
+      </section>
+    ))}
+  </div>
+</div>
+
+<script>
+  import { initCarouselTabs } from '../../scripts/carousel';
+
+  initCarouselTabs();
+</script>

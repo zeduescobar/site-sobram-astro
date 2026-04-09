@@ -1,0 +1,29 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  class?: string;
+  target?: string;
+  rel?: string;
+  ariaLabel?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  class: className = '',
+  target,
+  rel,
+  ariaLabel
+} = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={['button-link', `button-link--${variant}`, className]}
+  target={target}
+  rel={rel}
+  aria-label={ariaLabel}
+>
+  <slot />
+</a>

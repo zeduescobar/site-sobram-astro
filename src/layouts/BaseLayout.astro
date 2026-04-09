@@ -1,0 +1,56 @@
+---
+import { siteConfig } from '../data/site';
+import TrackingBody from '../components/TrackingBody.astro';
+import TrackingHead from '../components/TrackingHead.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = siteConfig.title,
+  description = siteConfig.description,
+  image = `${siteConfig.siteUrl}/favicon.png`
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, siteConfig.siteUrl).toString();
+---
+
+<!doctype html>
+<html lang="pt-BR" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={siteConfig.keywords} />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="SOBAM Planos de Saúde" />
+    <meta name="language" content="pt-BR" />
+    <meta name="geo.region" content="BR-SP" />
+    <meta name="geo.placename" content="Jundiaí, São Paulo" />
+    <meta name="theme-color" content={siteConfig.themeColor} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={siteConfig.siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <TrackingHead gtmId={siteConfig.gtmId} />
+    <slot name="head" />
+  </head>
+  <body>
+    <TrackingBody gtmId={siteConfig.gtmId} />
+    <slot />
+  </body>
+</html>

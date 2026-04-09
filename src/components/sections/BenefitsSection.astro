@@ -1,0 +1,26 @@
+---
+import Icon from '../ui/Icon.astro';
+import { benefits } from '../../data/site';
+---
+
+<section id="beneficios" class="content-section">
+  <div class="shell">
+    <div class="section-heading">
+      <p class="eyebrow">Benefícios</p>
+      <h2>Por que escolher a SOBAM?</h2>
+      <p>Benefícios pensados para gerar tranquilidade, previsibilidade e atendimento regional.</p>
+    </div>
+
+    <div class="benefits-grid">
+      {benefits.map((benefit) => (
+        <article class="benefit-card">
+          <div class="benefit-card__icon">
+            <Icon name={benefit.icon} />
+          </div>
+          <h3>{benefit.title}</h3>
+          <p>{benefit.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

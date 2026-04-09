@@ -1,0 +1,14 @@
+---
+import { siteConfig } from '../data/site';
+import Icon from './ui/Icon.astro';
+---
+
+<a
+  href={siteConfig.whatsappUrl}
+  class="floating-whatsapp"
+  target="_blank"
+  rel="noreferrer"
+  aria-label="Abrir conversa no WhatsApp"
+>
+  <Icon name="whatsapp" />
+</a>

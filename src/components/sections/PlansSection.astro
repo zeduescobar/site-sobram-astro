@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import Icon from '../ui/Icon.astro';
+import ButtonLink from '../ui/ButtonLink.astro';
+import { plans, siteConfig } from '../../data/site';
+---
+
+<section id="planos" class="content-section content-section--surface">
+  <div class="shell">
+    <div class="section-heading">
+      <p class="eyebrow">Planos</p>
+      <h2>Escolha o plano ideal para você</h2>
+      <p>Opções para família, MEI e empresas com uma base pronta para atendimento consultivo.</p>
+    </div>
+
+    <div class="plan-grid">
+      {plans.map((plan) => (
+        <article id={plan.id} class:list={['plan-card', plan.featured && 'plan-card--featured']}>
+          <div class="plan-card__media">
+            <Image
+              src={plan.image}
+              alt={plan.imageAlt}
+              widths={[480, 768]}
+              sizes="(min-width: 960px) 40vw, 100vw"
+              loading="lazy"
+              format="webp"
+              quality={72}
+            />
+          </div>
+
+          <div class="plan-card__body">
+            <div class="plan-card__header">
+              <div>
+                <h3>{plan.title}</h3>
+                <p>{plan.subtitle}</p>
+              </div>
+              {plan.badge && <span class="plan-card__badge">{plan.badge}</span>}
+            </div>
+
+            <ul class="plan-card__list">
+              {plan.items.map((item) => (
+                <li>
+                  <Icon name="check" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <ButtonLink href={siteConfig.whatsappUrl} target="_blank" rel="noreferrer">
+              Receber orçamento
+            </ButtonLink>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

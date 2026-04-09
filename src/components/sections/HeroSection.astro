@@ -1,0 +1,80 @@
+---
+import { Picture } from 'astro:assets';
+import ButtonLink from '../ui/ButtonLink.astro';
+import Icon from '../ui/Icon.astro';
+import { brandAssets, heroHighlights, siteConfig } from '../../data/site';
+---
+
+<section id="home" class="hero-section">
+  <div class="hero-media" aria-hidden="true">
+    <Picture
+      src={brandAssets.heroDesktop}
+      formats={['avif', 'webp']}
+      widths={[480, 768, 1024, 1440, 1920]}
+      sizes="100vw"
+      alt=""
+      class="hero-media__image hero-media__image--desktop"
+      loading="eager"
+      fetchpriority="high"
+      quality={80}
+    />
+    <Picture
+      src={brandAssets.heroMobile}
+      formats={['avif', 'webp']}
+      widths={[360, 480, 640, 768]}
+      sizes="100vw"
+      alt=""
+      class="hero-media__image hero-media__image--mobile"
+      loading="eager"
+      fetchpriority="high"
+      quality={76}
+    />
+    <div class="hero-media__overlay"></div>
+  </div>
+
+  <div class="shell hero-section__content">
+    <div class="hero-copy">
+      <p class="eyebrow">Plano de saúde em Jundiaí e região</p>
+      <h1>Preserve a saúde da sua família e da sua empresa.</h1>
+      <p class="hero-copy__lead">
+        Planos de saúde com cobertura ANS, rede própria e atendimento regional para cuidar
+        de quem mais importa.
+      </p>
+
+      <div class="hero-price" aria-label="A partir de noventa e quatro reais e quatro centavos por mês">
+        <span class="hero-price__label">A partir de</span>
+        <strong>R$ 94,04</strong>
+        <span class="hero-price__meta">por mês</span>
+        <small>Valor CNPJ: 0 a 18 anos</small>
+      </div>
+
+      <div class="hero-actions">
+        <ButtonLink href="#formulario" class="hero-actions__primary" ariaLabel="Ir para o formulário de orçamento">
+          <Icon name="document" />
+          Quero um orçamento agora
+        </ButtonLink>
+
+        <ButtonLink
+          href={siteConfig.whatsappUrl}
+          target="_blank"
+          rel="noreferrer"
+          variant="secondary"
+          class="hero-actions__secondary"
+          ariaLabel="Solicitar orçamento pelo WhatsApp"
+        >
+          <Icon name="whatsapp" />
+          Falar no WhatsApp
+        </ButtonLink>
+      </div>
+
+      <ul class="hero-highlights" aria-label="Diferenciais principais">
+        {heroHighlights.map((item) => (
+          <li>
+            <Icon name={item.icon} />
+            <span>{item.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
