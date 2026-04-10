@@ -1,3 +1,7 @@
+---
+import '../styles/tailwind.css';
+---
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -30,18 +34,20 @@
     <meta name="twitter:description" content="Planos de saúde acessíveis com cobertura completa ANS. A partir de R$ 94,04/mês. Solicite seu orçamento gratuito!">
     <meta name="twitter:image" content="images/transferir.png">
     
-    <!-- Tailwind CSS -->
-    <script is:inline src="https://cdn.tailwindcss.com"></script>
-    
     <!-- Font Awesome para ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="images/fundo-hero-mobile.jpg" media="(max-width: 767px)">
+    <link rel="preload" as="image" href="images/team-young-specialist-doctors-standing-corridor-hospital.jpg" media="(min-width: 768px)">
     
     <!-- Configuração do Tailwind -->
     <script is:inline>
-        tailwind.config = {
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
             theme: {
                 extend: {
                     colors: {
@@ -91,12 +97,12 @@
                 <!-- Logo SOBAM -->
                 <div class="flex items-center">
                     <div class="flex items-center px-6 py-3">
-                        <img src="images/sobam-logo.png" alt="Grupo SOBAM" class="h-14 lg:h-18 w-auto">
+                        <img src="images/sobam-logo.png" alt="Grupo SOBAM" class="h-14 lg:h-18 w-auto" width="294" height="88" fetchpriority="high" decoding="async">
                     </div>
                 </div>
                 
                 <!-- Menu Desktop -->
-                <nav class="hidden md:flex items-center space-x-8">
+                <nav class="hidden md:flex items-center space-x-8" aria-label="Navegação principal">
                     <a href="#individual" class="text-gray-800 hover:text-primary transition-colors font-medium">Individual e Familiar</a>
                     <a href="#empresarial" class="text-gray-800 hover:text-primary transition-colors font-medium">Empresarial</a>
                     <a href="#rede" class="text-gray-800 hover:text-primary transition-colors font-medium">Rede</a>
@@ -108,7 +114,7 @@
                 
                 <!-- Menu Mobile -->
                 <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-gray-800">
+                    <button id="mobile-menu-btn" class="text-gray-800" aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menu">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
@@ -269,7 +275,7 @@
                 <!-- ÂNCORA PARA GOOGLE ADS: id="individual" - Plano individual e familiar -->
                 <div id="individual" class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
                     <div class="text-center mb-8">
-                        <img src="images/individual-e-familiar.jpg" alt="Plano Individual e Familiar" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='images/individual e familiar.jpg'">
+                        <img src="images/individual-e-familiar.jpg" alt="Plano Individual e Familiar" class="w-full h-64 object-cover rounded-lg mb-4" width="1000" height="667" loading="lazy" decoding="async" onerror="this.src='images/individual e familiar.jpg'">
                         <h3 class="text-2xl font-bold mb-2">Individual/Familiar</h3>
                         <p class="text-gray-600">Perfeito para você e sua família</p>
                     </div>
@@ -306,7 +312,7 @@
                 <!-- ÂNCORA PARA GOOGLE ADS: id="empresarial" - Plano empresarial -->
                 <div id="empresarial" class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border-2 border-primary">
                     <div class="text-center mb-8">
-                        <img src="images/empresarial.jpg" alt="Plano Empresarial" class="w-full h-64 object-cover rounded-lg mb-4">
+                        <img src="images/empresarial.jpg" alt="Plano Empresarial" class="w-full h-64 object-cover rounded-lg mb-4" width="6720" height="4480" loading="lazy" decoding="async">
                         <h3 class="text-2xl font-bold mb-2">Empresarial</h3>
                         <p class="text-gray-600">MEI e CNPJ - Cuide da sua equipe</p>
                         <div class="bg-primary text-white px-4 py-1 rounded-full text-sm font-semibold mt-2 inline-block">
@@ -360,13 +366,13 @@
                 <!-- Navegação por Categoria -->
                 <div class="flex justify-center mb-8">
                     <div class="flex space-x-4 bg-gray-100 rounded-lg p-2">
-                        <button class="category-btn active px-6 py-2 rounded-md font-semibold transition-colors" data-category="hospitais">
+                        <button class="category-btn active px-6 py-2 rounded-md font-semibold transition-colors" data-category="hospitais" type="button" aria-pressed="true">
                             Hospitais
                         </button>
-                        <button class="category-btn px-6 py-2 rounded-md font-semibold transition-colors" data-category="policlinicas">
+                        <button class="category-btn px-6 py-2 rounded-md font-semibold transition-colors" data-category="policlinicas" type="button" aria-pressed="false">
                             Policlínicas
                         </button>
-                        <button class="category-btn px-6 py-2 rounded-md font-semibold transition-colors" data-category="laboratorios">
+                        <button class="category-btn px-6 py-2 rounded-md font-semibold transition-colors" data-category="laboratorios" type="button" aria-pressed="false">
                             Laboratórios
                         </button>
                     </div>
@@ -378,17 +384,17 @@
                     <div class="category-content active" data-category="hospitais">
                         <div class="auto-carousel-container">
                             <!-- Botões de Navegação -->
-                            <button class="carousel-nav-btn prev-btn absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-colors z-10" data-category="hospitais">
+                            <button class="carousel-nav-btn prev-btn absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-colors z-10" data-category="hospitais" type="button" aria-label="Slide anterior de hospitais">
                                 <i class="fas fa-chevron-left text-primary text-xl"></i>
                             </button>
-                            <button class="carousel-nav-btn next-btn absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-colors z-10" data-category="hospitais">
+                            <button class="carousel-nav-btn next-btn absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-colors z-10" data-category="hospitais" type="button" aria-label="Próximo slide de hospitais">
                                 <i class="fas fa-chevron-right text-primary text-xl"></i>
                             </button>
                             
                             <div class="auto-carousel-track" data-category="hospitais">
                                 <div class="carousel-slide">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                        <img src="images/hospitais/Hospital-Clinicas-Caieiras-.jpg" alt="Hospital Clínicas Caieiras" class="w-full h-64 object-cover">
+                                        <img src="images/hospitais/Hospital-Clinicas-Caieiras-.jpg" alt="Hospital Clínicas Caieiras" class="w-full h-64 object-cover" width="800" height="460" loading="lazy" decoding="async">
                                         <div class="p-6">
                                             <h4 class="font-semibold text-lg mb-2">Hospital Clínicas Caieiras</h4>
                                             <p class="text-gray-600 text-sm">Atendimento especializado em Caieiras</p>
@@ -397,7 +403,7 @@
                                 </div>
                                 <div class="carousel-slide">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                        <img src="images/hospitais/Hospital-Pitangueiras-Jundiai-SP.jpg" alt="Hospital Pitangueiras Jundiaí" class="w-full h-64 object-cover">
+                                        <img src="images/hospitais/Hospital-Pitangueiras-Jundiai-SP.jpg" alt="Hospital Pitangueiras Jundiaí" class="w-full h-64 object-cover" width="800" height="460" loading="lazy" decoding="async">
                                         <div class="p-6">
                                             <h4 class="font-semibold text-lg mb-2">Hospital Pitangueiras</h4>
                                             <p class="text-gray-600 text-sm">Referência em Jundiaí</p>
@@ -406,7 +412,7 @@
                                 </div>
                                 <div class="carousel-slide">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                        <img src="images/hospitais/hospital-psiquiatrico-itupeva.jpeg" alt="Hospital Psiquiátrico Itupeva" class="w-full h-64 object-cover">
+                                        <img src="images/hospitais/hospital-psiquiatrico-itupeva.jpeg" alt="Hospital Psiquiátrico Itupeva" class="w-full h-64 object-cover" width="800" height="460" loading="lazy" decoding="async">
                                         <div class="p-6">
                                             <h4 class="font-semibold text-lg mb-2">Hospital Psiquiátrico Itupeva</h4>
                                             <p class="text-gray-600 text-sm">Atendimento psiquiátrico especializado em Itupeva</p>
@@ -422,42 +428,42 @@
                         <!-- Layout Desktop: Fixo -->
                         <div class="hidden md:grid md:grid-cols-3 gap-8">
                             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                <img src="images/policlinicas/Policlinica-Cabreuva.jpg" alt="Policlínica Cabreúva" class="w-full object-cover">
+                                <img src="images/policlinicas/Policlinica-Cabreuva.jpg" alt="Policlínica Cabreúva" class="w-full object-cover" width="300" height="156" loading="lazy" decoding="async">
                                 <div class="p-6">
                                     <h4 class="font-semibold text-lg mb-2">Policlínica Cabreúva</h4>
                                     <p class="text-gray-600 text-sm">Atendimento em Cabreúva</p>
                                 </div>
                             </div>
                             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                <img src="images/policlinicas/Policlinica-Campo-Limpo-PTA.jpg" alt="Policlínica Campo Limpo PTA" class="w-full object-cover">
+                                <img src="images/policlinicas/Policlinica-Campo-Limpo-PTA.jpg" alt="Policlínica Campo Limpo PTA" class="w-full object-cover" width="300" height="156" loading="lazy" decoding="async">
                                 <div class="p-6">
                                     <h4 class="font-semibold text-lg mb-2">Policlínica Campo Limpo PTA</h4>
                                     <p class="text-gray-600 text-sm">Atendimento em Campo Limpo</p>
                                 </div>
                             </div>
                             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                <img src="images/policlinicas/Policlinica-Varzea-PTA.jpg" alt="Policlínica Várzea PTA" class="w-full object-cover">
+                                <img src="images/policlinicas/Policlinica-Varzea-PTA.jpg" alt="Policlínica Várzea PTA" class="w-full object-cover" width="300" height="156" loading="lazy" decoding="async">
                                 <div class="p-6">
                                     <h4 class="font-semibold text-lg mb-2">Policlínica Várzea PTA</h4>
                                     <p class="text-gray-600 text-sm">Atendimento em Várzea</p>
                                 </div>
                             </div>
                             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                <img src="images/policlinicas/Centro-de-Ortopedia-Jundiai.jpg" alt="Centro de Ortopedia Jundiaí" class="w-full object-cover">
+                                <img src="images/policlinicas/Centro-de-Ortopedia-Jundiai.jpg" alt="Centro de Ortopedia Jundiaí" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                 <div class="p-6">
                                     <h4 class="font-semibold text-lg mb-2">Centro de Ortopedia Jundiaí</h4>
                                     <p class="text-gray-600 text-sm">Especializado em Ortopedia</p>
                                 </div>
                             </div>
                             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                <img src="images/policlinicas/Centro-de-Pediatria-Jundiai.jpg" alt="Centro de Pediatria Jundiaí" class="w-full object-cover">
+                                <img src="images/policlinicas/Centro-de-Pediatria-Jundiai.jpg" alt="Centro de Pediatria Jundiaí" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                 <div class="p-6">
                                     <h4 class="font-semibold text-lg mb-2">Centro de Pediatria Jundiaí</h4>
                                     <p class="text-gray-600 text-sm">Especializado em Pediatria</p>
                                 </div>
                             </div>
                             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                <img src="images/policlinicas/Centro-de-Especialidades-Jundiai.jpg" alt="Centro de Especialidades Jundiaí" class="w-full object-cover">
+                                <img src="images/policlinicas/Centro-de-Especialidades-Jundiai.jpg" alt="Centro de Especialidades Jundiaí" class="w-full object-cover" width="300" height="156" loading="lazy" decoding="async">
                                 <div class="p-6">
                                     <h4 class="font-semibold text-lg mb-2">Centro de Especialidades Jundiaí</h4>
                                     <p class="text-gray-600 text-sm">Múltiplas Especialidades</p>
@@ -468,16 +474,16 @@
                         
                         <!-- Layout Mobile: Carrossel -->
                         <div class="md:hidden relative">
-                            <button class="carousel-btn prev absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-colors z-10">
+                            <button class="carousel-btn prev absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-colors z-10" type="button" aria-label="Slide anterior de policlínicas">
                                 <i class="fas fa-chevron-left text-primary text-xl"></i>
                             </button>
-                            <button class="carousel-btn next absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-colors z-10">
+                            <button class="carousel-btn next absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-colors z-10" type="button" aria-label="Próximo slide de policlínicas">
                                 <i class="fas fa-chevron-right text-primary text-xl"></i>
                             </button>
                             <div class="carousel-track flex transition-transform duration-300 ease-in-out">
                                 <div class="carousel-slide min-w-full px-4">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                                                            <img src="images/policlinicas/Policlinica-Cabreuva.jpg" alt="Policlínica Cabreúva" class="w-full object-cover">
+                                                                            <img src="images/policlinicas/Policlinica-Cabreuva.jpg" alt="Policlínica Cabreúva" class="w-full object-cover" width="300" height="156" loading="lazy" decoding="async">
                                     <div class="p-6">
                                         <h4 class="font-semibold text-lg mb-2">Policlínica Cabreúva</h4>
                                             <p class="text-gray-600 text-sm">Atendimento em Cabreúva</p>
@@ -486,7 +492,7 @@
                                 </div>
                                 <div class="carousel-slide min-w-full px-4">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                                                            <img src="images/policlinicas/Policlinica-Campo-Limpo-PTA.jpg" alt="Policlínica Campo Limpo PTA" class="w-full object-cover">
+                                                                            <img src="images/policlinicas/Policlinica-Campo-Limpo-PTA.jpg" alt="Policlínica Campo Limpo PTA" class="w-full object-cover" width="300" height="156" loading="lazy" decoding="async">
                                     <div class="p-6">
                                         <h4 class="font-semibold text-lg mb-2">Policlínica Campo Limpo PTA</h4>
                                             <p class="text-gray-600 text-sm">Atendimento em Campo Limpo</p>
@@ -495,7 +501,7 @@
                                 </div>
                                 <div class="carousel-slide min-w-full px-4">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                                                            <img src="images/policlinicas/Policlinica-Varzea-PTA.jpg" alt="Policlínica Várzea PTA" class="w-full object-cover">
+                                                                            <img src="images/policlinicas/Policlinica-Varzea-PTA.jpg" alt="Policlínica Várzea PTA" class="w-full object-cover" width="300" height="156" loading="lazy" decoding="async">
                                     <div class="p-6">
                                         <h4 class="font-semibold text-lg mb-2">Policlínica Várzea PTA</h4>
                                             <p class="text-gray-600 text-sm">Atendimento em Várzea</p>
@@ -504,7 +510,7 @@
                                 </div>
                                 <div class="carousel-slide min-w-full px-4">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                                                            <img src="images/policlinicas/Centro-de-Ortopedia-Jundiai.jpg" alt="Centro de Ortopedia Jundiaí" class="w-full object-cover">
+                                                                            <img src="images/policlinicas/Centro-de-Ortopedia-Jundiai.jpg" alt="Centro de Ortopedia Jundiaí" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                     <div class="p-6">
                                         <h4 class="font-semibold text-lg mb-2">Centro de Ortopedia Jundiaí</h4>
                                             <p class="text-gray-600 text-sm">Especializado em Ortopedia</p>
@@ -513,7 +519,7 @@
                                 </div>
                                 <div class="carousel-slide min-w-full px-4">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                                                            <img src="images/policlinicas/Centro-de-Pediatria-Jundiai.jpg" alt="Centro de Pediatria Jundiaí" class="w-full object-cover">
+                                                                            <img src="images/policlinicas/Centro-de-Pediatria-Jundiai.jpg" alt="Centro de Pediatria Jundiaí" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                     <div class="p-6">
                                         <h4 class="font-semibold text-lg mb-2">Centro de Pediatria Jundiaí</h4>
                                             <p class="text-gray-600 text-sm">Especializado em Pediatria</p>
@@ -522,7 +528,7 @@
                                 </div>
                                 <div class="carousel-slide min-w-full px-4">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                                                            <img src="images/policlinicas/Centro-de-Especialidades-Jundiai.jpg" alt="Centro de Especialidades Jundiaí" class="w-full object-cover">
+                                                                            <img src="images/policlinicas/Centro-de-Especialidades-Jundiai.jpg" alt="Centro de Especialidades Jundiaí" class="w-full object-cover" width="300" height="156" loading="lazy" decoding="async">
                                     <div class="p-4">
                                         <h4 class="font-semibold text-lg mb-2">Centro de Especialidades Jundiaí</h4>
                                             <p class="text-gray-600 text-sm">Múltiplas Especialidades</p>
@@ -531,7 +537,7 @@
                                 </div>
                                 <div class="carousel-slide min-w-full px-4">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                                                            <img src="images/hospitais/hospital-psiquiatrico-itupeva.jpg" alt="Hospital Psiquiátrico Itupeva" class="w-full object-cover">
+                                                                            <img src="images/hospitais/hospital-psiquiatrico-itupeva.jpg" alt="Hospital Psiquiátrico Itupeva" class="w-full object-cover" width="800" height="460" loading="lazy" decoding="async">
                                     <div class="p-6">
                                         <h4 class="font-semibold text-lg mb-2">Hospital Psiquiátrico Itupeva</h4>
                                             <p class="text-gray-600 text-sm">Atendimento psiquiátrico especializado em Itupeva</p>
@@ -547,42 +553,42 @@
                         <!-- Layout Desktop: Fixo -->
                         <div class="hidden md:grid md:grid-cols-3 gap-8">
                             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                <img src="images/Laboratorios/CTA-Caieiras.jpg" alt="CTA Caieiras" class="w-full object-cover">
+                                <img src="images/Laboratorios/CTA-Caieiras.jpg" alt="CTA Caieiras" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                 <div class="p-6">
                                     <h4 class="font-semibold text-lg mb-2">CTA Caieiras</h4>
                                     <p class="text-gray-600 text-sm">Laboratório em Caieiras</p>
                                 </div>
                             </div>
                             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                <img src="images/Laboratorios/Anchieta-Campo-Limpo-PTA.jpg" alt="Anchieta Campo Limpo PTA" class="w-full object-cover">
+                                <img src="images/Laboratorios/Anchieta-Campo-Limpo-PTA.jpg" alt="Anchieta Campo Limpo PTA" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                 <div class="p-6">
                                     <h4 class="font-semibold text-lg mb-2">Anchieta Campo Limpo PTA</h4>
                                     <p class="text-gray-600 text-sm">Laboratório em Campo Limpo</p>
                                 </div>
                             </div>
                             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                <img src="images/Laboratorios/Anchieta-Itupeva.jpg" alt="Anchieta Itupeva" class="w-full object-cover">
+                                <img src="images/Laboratorios/Anchieta-Itupeva.jpg" alt="Anchieta Itupeva" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                 <div class="p-6">
                                     <h4 class="font-semibold text-lg mb-2">Anchieta Itupeva</h4>
                                     <p class="text-gray-600 text-sm">Laboratório em Itupeva</p>
                                 </div>
                             </div>
                             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                <img src="images/Laboratorios/Anchieta-Rua-Anchieta-Jundiai.jpg" alt="Anchieta Rua Anchieta Jundiaí" class="w-full object-cover">
+                                <img src="images/Laboratorios/Anchieta-Rua-Anchieta-Jundiai.jpg" alt="Anchieta Rua Anchieta Jundiaí" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                 <div class="p-6">
                                     <h4 class="font-semibold text-lg mb-2">Anchieta Rua Anchieta Jundiaí</h4>
                                     <p class="text-gray-600 text-sm">Laboratório em Jundiaí</p>
                                 </div>
                             </div>
                             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                <img src="images/Laboratorios/Anchieta-Rua-23-de-Maio-Jundiai.jpg" alt="Anchieta Rua 23 de Maio Jundiaí" class="w-full object-cover">
+                                <img src="images/Laboratorios/Anchieta-Rua-23-de-Maio-Jundiai.jpg" alt="Anchieta Rua 23 de Maio Jundiaí" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                 <div class="p-6">
                                     <h4 class="font-semibold text-lg mb-2">Anchieta Rua 23 de Maio Jundiaí</h4>
                                     <p class="text-gray-600 text-sm">Laboratório em Jundiaí</p>
                                 </div>
                             </div>
                             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                <img src="images/Laboratorios/Anchieta-Rua-Italia-Jundiai.jpg" alt="Anchieta Rua Itália Jundiaí" class="w-full object-cover">
+                                <img src="images/Laboratorios/Anchieta-Rua-Italia-Jundiai.jpg" alt="Anchieta Rua Itália Jundiaí" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                 <div class="p-6">
                                     <h4 class="font-semibold text-lg mb-2">Anchieta Rua Itália Jundiaí</h4>
                                     <p class="text-gray-600 text-sm">Laboratório em Jundiaí</p>
@@ -592,16 +598,16 @@
                         
                         <!-- Layout Mobile: Carrossel -->
                         <div class="md:hidden relative">
-                            <button class="carousel-btn prev absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-colors z-10">
+                            <button class="carousel-btn prev absolute left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-colors z-10" type="button" aria-label="Slide anterior de laboratórios">
                                 <i class="fas fa-chevron-left text-primary text-xl"></i>
                             </button>
-                            <button class="carousel-btn next absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-colors z-10">
+                            <button class="carousel-btn next absolute right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:bg-gray-50 transition-colors z-10" type="button" aria-label="Próximo slide de laboratórios">
                                 <i class="fas fa-chevron-right text-primary text-xl"></i>
                             </button>
                             <div class="carousel-track flex transition-transform duration-300 ease-in-out">
                                 <div class="carousel-slide min-w-full px-4">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                        <img src="images/Laboratorios/CTA-Caieiras.jpg" alt="CTA Caieiras" class="w-full object-cover">
+                                        <img src="images/Laboratorios/CTA-Caieiras.jpg" alt="CTA Caieiras" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                         <div class="p-6">
                                             <h4 class="font-semibold text-lg mb-2">CTA Caieiras</h4>
                                             <p class="text-gray-600 text-sm">Laboratório em Caieiras</p>
@@ -610,7 +616,7 @@
                                 </div>
                                 <div class="carousel-slide min-w-full px-4">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                        <img src="images/Laboratorios/Anchieta-Campo-Limpo-PTA.jpg" alt="Anchieta Campo Limpo PTA" class="w-full object-cover">
+                                        <img src="images/Laboratorios/Anchieta-Campo-Limpo-PTA.jpg" alt="Anchieta Campo Limpo PTA" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                         <div class="p-6">
                                             <h4 class="font-semibold text-lg mb-2">Anchieta Campo Limpo PTA</h4>
                                             <p class="text-gray-600 text-sm">Laboratório em Campo Limpo</p>
@@ -619,7 +625,7 @@
                                 </div>
                                 <div class="carousel-slide min-w-full px-4">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                        <img src="images/Laboratorios/Anchieta-Itupeva.jpg" alt="Anchieta Itupeva" class="w-full object-cover">
+                                        <img src="images/Laboratorios/Anchieta-Itupeva.jpg" alt="Anchieta Itupeva" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                         <div class="p-6">
                                             <h4 class="font-semibold text-lg mb-2">Anchieta Itupeva</h4>
                                             <p class="text-gray-600 text-sm">Laboratório em Itupeva</p>
@@ -628,7 +634,7 @@
                                 </div>
                                 <div class="carousel-slide min-w-full px-4">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                                                            <img src="images/Laboratorios/Anchieta-Rua-Anchieta-Jundiai.jpg" alt="Anchieta Rua Anchieta Jundiaí" class="w-full object-cover">
+                                                                            <img src="images/Laboratorios/Anchieta-Rua-Anchieta-Jundiai.jpg" alt="Anchieta Rua Anchieta Jundiaí" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                     <div class="p-6">
                                         <h4 class="font-semibold text-lg mb-2">Anchieta Rua Anchieta Jundiaí</h4>
                                             <p class="text-gray-600 text-sm">Laboratório em Jundiaí</p>
@@ -637,7 +643,7 @@
                                 </div>
                                 <div class="carousel-slide min-w-full px-4">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                                                            <img src="images/Laboratorios/Anchieta-Rua-23-de-Maio-Jundiai.jpg" alt="Anchieta Rua 23 de Maio Jundiaí" class="w-full object-cover">
+                                                                            <img src="images/Laboratorios/Anchieta-Rua-23-de-Maio-Jundiai.jpg" alt="Anchieta Rua 23 de Maio Jundiaí" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                     <div class="p-6">
                                         <h4 class="font-semibold text-lg mb-2">Anchieta Rua 23 de Maio Jundiaí</h4>
                                             <p class="text-gray-600 text-sm">Laboratório em Jundiaí</p>
@@ -646,7 +652,7 @@
                                 </div>
                                 <div class="carousel-slide min-w-full px-4">
                                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                                                            <img src="images/Laboratorios/Anchieta-Rua-Italia-Jundiai.jpg" alt="Anchieta Rua Itália Jundiaí" class="w-full object-cover">
+                                                                            <img src="images/Laboratorios/Anchieta-Rua-Italia-Jundiai.jpg" alt="Anchieta Rua Itália Jundiaí" class="w-full object-cover" width="770" height="400" loading="lazy" decoding="async">
                                     <div class="p-6">
                                         <h4 class="font-semibold text-lg mb-2">Anchieta Rua Itália Jundiaí</h4>
                                             <p class="text-gray-600 text-sm">Laboratório em Jundiaí</p>
@@ -675,41 +681,41 @@
             <div class="max-w-4xl mx-auto">
                 <div class="faq-container bg-white rounded-lg border-2 border-primary p-6 shadow-sm">
                     <div class="faq-item">
-                        <div class="faq-question">
+                        <button type="button" class="faq-question">
                             <h3>Qual a vantagem em contratar um plano coparticipativo?</h3>
                             <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
+                        </button>
+                        <div class="faq-answer" hidden>
                             <p>A grande vantagem é o valor! Os planos Sobam coparticipativos contam com um valor até 20% mais baixo.</p>
                         </div>
                     </div>
                     
                     <div class="faq-item">
-                        <div class="faq-question">
+                        <button type="button" class="faq-question">
                             <h3>Quais procedimentos médicos cobrem os planos Sobam?</h3>
                             <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
+                        </button>
+                        <div class="faq-answer" hidden>
                             <p>Cobrem praticamente TODOS! Tanto os planos coparticipativos quanto sem coparticipação cobrem todos os procedimentos constatados no Rol da ANS. Por como exemplo: consultas, exames, cirurgias, internações, transplantes de rim, córnea e medula e tratamentos complexos como quimioterapia e hemodiálise</p>
                         </div>
                     </div>
                     
                     <div class="faq-item">
-                        <div class="faq-question">
+                        <button type="button" class="faq-question">
                             <h3>Como funciona a contratação?</h3>
                             <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
+                        </button>
+                        <div class="faq-answer" hidden>
                             <p>Ela é TOTALMENTE ONLINE! Após o início da pandemia, tivemos que adaptar nosso modelo de contratação antes feito todo presencialmente. Agora o processo é inteiramente online: Rápido, prático e sem burocracia!</p>
                         </div>
                     </div>
                     
                     <div class="faq-item">
-                        <div class="faq-question">
+                        <button type="button" class="faq-question">
                             <h3>Como recebo o orçamento com os valores do meu plano?</h3>
                             <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
+                        </button>
+                        <div class="faq-answer" hidden>
                             <p>Preencha o formulário na área acima "solicite seu orçamento", e um consultor especializado Sobam entrará em contato por telefone ou WhatsApp para realizar seu orçamento, e posteriormente, efetivar a contratação do seu plano de saúde!</p>
                         </div>
                     </div>
@@ -798,13 +804,13 @@
                 <!-- Informações da Empresa -->
                 <div class="md:col-span-2">
                     <div class="flex items-center mb-4">
-                        <img src="images/logo-sobam-1.png" alt="SOBAM" class="h-12 mr-4">
+                        <img src="images/logo-sobam-1.png" alt="SOBAM" class="h-12 mr-4" width="443" height="129" loading="lazy" decoding="async">
                        
-                        <img src="images/Logo-VaiCo_horizontal_BRANCO_-1.png" alt="VaiCom" class="h-10" style="filter: brightness(0) invert(1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="images/Logo-VaiCo_horizontal_BRANCO_-1.png" alt="VaiCom" class="h-10" width="762" height="198" loading="lazy" decoding="async" style="filter: brightness(0) invert(1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span style="display:none; color: white; font-weight: bold; font-size: 1.25rem;">VaiCom</span>
                     </div>
                     <div class="flex items-center space-x-4 mb-4">
-                        <img src="images/ans-branca.png" alt="ANS" class="h-8" style="filter: brightness(0) invert(1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                        <img src="images/ans-branca.png" alt="ANS" class="h-8" width="3726" height="741" loading="lazy" decoding="async" style="filter: brightness(0) invert(1);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <span style="display:none; color: white; font-weight: bold; font-size: 1rem;">ANS</span>
                         <span class="text-sm text-gray-400">Regulamentado pela ANS</span>
                     </div>
@@ -856,10 +862,11 @@
     </div>
 
     <!-- EmailJS -->
-    <script is:inline type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script is:inline defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <!-- JavaScript -->
-    <script is:inline src="script.js"></script>
-    <script is:inline src="auto-carousel.js"></script>
+    <script>
+        import '../scripts/site';
+    </script>
 </body>
 </html> 

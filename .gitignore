@@ -36,6 +36,7 @@ Thumbs.db
 # Cache
 .cache/
 .parcel-cache/
+.astro/
 
 # Arquivos de sistema
 .DS_Store
